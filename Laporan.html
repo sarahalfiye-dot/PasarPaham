@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Laporan | Paham Pasar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f1f5f9;
+display:flex;
+color:#1e293b;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:250px;
+height:100vh;
+background:white;
+position:fixed;
+top:0;
+left:0;
+padding:25px;
+border-right:1px solid #e2e8f0;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+margin-bottom:40px;
+}
+
+.logo span{
+display:block;
+font-size:14px;
+color:#64748b;
+margin-top:5px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#475569;
+padding:14px 16px;
+border-radius:14px;
+display:flex;
+align-items:center;
+gap:12px;
+transition:0.2s;
+font-weight:500;
+}
+
+.menu a:hover{
+background:#f1f5f9;
+}
+
+.menu .active{
+background:#2563eb;
+color:white;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+width:100%;
+padding:30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.topbar h1{
+font-size:34px;
+}
+
+.topbar p{
+color:#64748b;
+margin-top:5px;
+}
+
+.clock{
+background:white;
+padding:14px 20px;
+border-radius:18px;
+box-shadow:0 2px 10px rgba(0,0,0,0.05);
+color:#2563eb;
+font-weight:600;
+text-align:center;
+}
+
+/* CARD */
+
+.cards{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-bottom:25px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+}
+
+.card h3{
+font-size:15px;
+color:#64748b;
+margin-bottom:10px;
+}
+
+.card h2{
+font-size:28px;
+margin-bottom:10px;
+}
+
+.status{
+font-size:14px;
+color:#16a34a;
+}
+
+/* BOX */
+
+.box{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+margin-bottom:25px;
+}
+
+.box h2{
+margin-bottom:20px;
+}
+
+/* CHART */
+
+.chart{
+height:350px;
+}
+
+canvas{
+width:100% !important;
+height:100% !important;
+}
+
+/* HISTORI */
+
+.history-card{
+background:#f8fafc;
+padding:20px;
+border-radius:18px;
+margin-bottom:15px;
+border-left:5px solid #2563eb;
+}
+
+.history-card h3{
+margin-bottom:10px;
+}
+
+.history-card p{
+margin-bottom:6px;
+color:#475569;
+}
+
+/* BUTTON */
+
+.btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:15px 20px;
+border-radius:14px;
+cursor:pointer;
+font-size:15px;
+font-weight:600;
+}
+
+.btn:hover{
+background:#1d4ed8;
+}
+
+/* INSIGHT */
+
+.insight{
+background:#eff6ff;
+padding:18px;
+border-radius:16px;
+margin-bottom:15px;
+line-height:1.6;
+color:#1d4ed8;
+font-weight:500;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+Paham Pasar
+<span>Dashboard UMKM</span>
+</div>
+
+<div class="menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+
+<a href="penjualan.html">
+<i class="fa-solid fa-chart-line"></i>
+Penjualan
+</a>
+
+<a href="produk.html">
+<i class="fa-solid fa-mug-hot"></i>
+Produk
+</a>
+
+<a href="pelanggan.html">
+<i class="fa-solid fa-users"></i>
+Pelanggan
+</a>
+
+<a href="laporan.html" class="active">
+<i class="fa-solid fa-file-lines"></i>
+Laporan
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div>
+
+<h1>Laporan Bulanan</h1>
+
+<p>
+Analisis perkembangan bisnis UMKM
+</p>
+
+</div>
+
+<div class="clock">
+
+<div id="tanggal"></div>
+<div id="jam"></div>
+
+</div>
+
+</div>
+
+<!-- CARD -->
+
+<div class="cards">
+
+<div class="card">
+
+<h3>Total Omzet Bulan Ini</h3>
+
+<h2 id="omzetBulan">
+Rp 0
+</h2>
+
+<div class="status">
+Pendapatan bulan berjalan
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Total Transaksi</h3>
+
+<h2 id="transaksiBulan">
+0
+</h2>
+
+<div class="status">
+Transaksi bulan ini
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Produk Terlaris</h3>
+
+<h2 id="produkTerlaris">
+-
+</h2>
+
+<div class="status">
+Produk paling diminati
+</div>
+
+</div>
+
+<div class="card">
+
+<h3>Peningkatan</h3>
+
+<h2 id="peningkatan">
+0%
+</h2>
+
+<div class="status">
+Dibanding bulan lalu
+</div>
+
+</div>
+
+</div>
+
+<!-- GRAFIK -->
+
+<div class="box">
+
+<h2>Grafik Omzet Bulanan</h2>
+
+<div class="chart">
+
+<canvas id="chartBulanan"></canvas>
+
+</div>
+
+</div>
+
+<!-- INSIGHT -->
+
+<div class="box">
+
+<h2>Insight Bisnis</h2>
+
+<div id="insightBisnis"></div>
+
+</div>
+
+<!-- HISTORI -->
+
+<div class="box">
+
+<h2>Histori Laporan Bulanan</h2>
+
+<div id="laporanContainer"></div>
+
+</div>
+
+<!-- BUTTON -->
+
+<button
+class="btn"
+onclick="tutupBulan()"
+>
+Tutup Bulan & Simpan Laporan
+</button>
+
+</div>
+
+<script>
+
+/* =========================
+JAM
+========================= */
+
+function updateClock(){
+
+const now = new Date();
+
+document.getElementById(
+"tanggal"
+).innerText =
+
+now.toLocaleDateString("id-ID");
+
+document.getElementById(
+"jam"
+).innerText =
+
+now.toLocaleTimeString("id-ID");
+
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+
+/* =========================
+AMBIL DATA
+========================= */
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let laporanBulanan = JSON.parse(
+localStorage.getItem("laporanBulanan")
+) || [];
+
+
+/* =========================
+PROSES DATA BULAN INI
+========================= */
+
+let totalOmzet = 0;
+let produkMap = {};
+
+transaksi.forEach(item=>{
+
+totalOmzet += Number(item.total);
+
+if(item.items){
+
+item.items.forEach(produk=>{
+
+if(produkMap[produk.nama]){
+
+produkMap[produk.nama] +=
+Number(produk.jumlah);
+
+}else{
+
+produkMap[produk.nama] =
+Number(produk.jumlah);
+
+}
+
+});
+
+}else{
+
+if(produkMap[item.nama]){
+
+produkMap[item.nama] +=
+Number(item.jumlah);
+
+}else{
+
+produkMap[item.nama] =
+Number(item.jumlah);
+
+}
+
+}
+
+});
+
+
+/* =========================
+PRODUK TERLARIS
+========================= */
+
+let produkTerlaris = "-";
+let max = 0;
+
+for(let produk in produkMap){
+
+if(produkMap[produk] > max){
+
+max = produkMap[produk];
+
+produkTerlaris = produk;
+
+}
+
+}
+
+
+/* =========================
+PENINGKATAN
+========================= */
+
+let persen = 0;
+
+if(laporanBulanan.length > 0){
+
+let bulanLalu =
+laporanBulanan[
+laporanBulanan.length - 1
+];
+
+if(bulanLalu.omzet > 0){
+
+persen = Math.round(
+
+(
+totalOmzet -
+bulanLalu.omzet
+)
+
+/
+
+bulanLalu.omzet
+
+* 100
+
+);
+
+}
+
+}
+
+
+/* =========================
+UPDATE CARD
+========================= */
+
+document.getElementById(
+"omzetBulan"
+).innerText =
+
+"Rp " +
+totalOmzet.toLocaleString("id-ID");
+
+
+document.getElementById(
+"transaksiBulan"
+).innerText =
+
+transaksi.length;
+
+
+document.getElementById(
+"produkTerlaris"
+).innerText =
+
+produkTerlaris;
+
+
+document.getElementById(
+"peningkatan"
+).innerText =
+
+persen + "%";
+
+
+/* =========================
+INSIGHT
+========================= */
+
+document.getElementById(
+"insightBisnis"
+).innerHTML = `
+
+<div class="insight">
+Omzet bulan ini:
+<b>
+Rp ${totalOmzet.toLocaleString("id-ID")}
+</b>
+</div>
+
+<div class="insight">
+Produk paling diminati:
+<b>${produkTerlaris}</b>
+</div>
+
+<div class="insight">
+Total transaksi:
+<b>${transaksi.length}</b>
+</div>
+
+<div class="insight">
+Peningkatan:
+<b>${persen}%</b>
+dibanding bulan lalu
+</div>
+
+`;
+
+
+/* =========================
+LOAD HISTORI
+========================= */
+
+function loadLaporan(){
+
+let laporanBulanan = JSON.parse(
+localStorage.getItem("laporanBulanan")
+) || [];
+
+let html = "";
+
+if(laporanBulanan.length > 0){
+
+laporanBulanan
+.slice()
+.reverse()
+.forEach(item=>{
+
+html += `
+
+<div class="history-card">
+
+<h3>${item.bulan}</h3>
+
+<p>
+Omzet:
+Rp ${item.omzet.toLocaleString("id-ID")}
+</p>
+
+<p>
+Transaksi:
+${item.transaksi}
+</p>
+
+<p>
+Produk Terlaris:
+${item.produkTerlaris}
+</p>
+
+<p>
+Peningkatan:
+${item.peningkatan}%
+</p>
+
+</div>
+
+`;
+
+});
+
+}else{
+
+html = `
+
+<div class="insight">
+Belum ada laporan tersimpan
+</div>
+
+`;
+
+}
+
+document.getElementById(
+"laporanContainer"
+).innerHTML = html;
+
+}
+
+loadLaporan();
+
+
+/* =========================
+CHART
+========================= */
+
+const labels =
+laporanBulanan.map(
+item => item.bulan
+);
+
+const dataOmzet =
+laporanBulanan.map(
+item => item.omzet
+);
+
+new Chart(
+
+document.getElementById(
+"chartBulanan"
+),
+
+{
+
+type:'line',
+
+data:{
+
+labels:labels,
+
+datasets:[{
+
+label:'Omzet Bulanan',
+
+data:dataOmzet,
+
+borderColor:'#2563eb',
+
+backgroundColor:
+'rgba(37,99,235,0.1)',
+
+fill:true,
+
+tension:0.4,
+
+borderWidth:3,
+
+pointBackgroundColor:'#2563eb',
+
+pointRadius:5
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+maintainAspectRatio:false,
+
+scales:{
+
+y:{
+beginAtZero:true
+}
+
+}
+
+}
+
+}
+
+);
+
+
+/* =========================
+TUTUP BULAN
+========================= */
+
+function tutupBulan(){
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+if(transaksi.length === 0){
+
+alert(
+"Belum ada transaksi!"
+);
+
+return;
+
+}
+
+let laporanBulanan = JSON.parse(
+localStorage.getItem("laporanBulanan")
+) || [];
+
+const now = new Date();
+
+const bulan = now.toLocaleDateString(
+"id-ID",
+{
+month:'long',
+year:'numeric'
+}
+);
+
+
+laporanBulanan.push({
+
+bulan:bulan,
+
+omzet:totalOmzet,
+
+transaksi:transaksi.length,
+
+produkTerlaris:produkTerlaris,
+
+peningkatan:persen
+
+});
+
+
+localStorage.setItem(
+
+"laporanBulanan",
+
+JSON.stringify(laporanBulanan)
+
+);
+
+
+/* RESET */
+
+localStorage.removeItem(
+"transaksi"
+);
+
+localStorage.setItem(
+"total",
+0
+);
+
+
+alert(
+"Laporan bulan berhasil disimpan!"
+);
+
+location.reload();
+
+}
+
+</script>
+
+</body>
+</html>

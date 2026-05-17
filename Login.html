@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login Firebase | Paham Pasar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f1f5f9;
+padding:20px;
+}
+
+.login-box{
+width:420px;
+background:white;
+padding:40px;
+border-radius:30px;
+box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+.logo{
+text-align:center;
+margin-bottom:30px;
+}
+
+.logo h1{
+font-size:36px;
+color:#2563eb;
+margin-bottom:10px;
+}
+
+.logo p{
+color:#64748b;
+}
+
+.input-box{
+margin-bottom:20px;
+}
+
+.input-box label{
+display:block;
+margin-bottom:8px;
+font-weight:600;
+color:#1e293b;
+}
+
+.input-box input{
+width:100%;
+padding:15px;
+border:1px solid #dbeafe;
+border-radius:14px;
+outline:none;
+font-size:15px;
+transition:0.2s;
+}
+
+.input-box input:focus{
+border-color:#2563eb;
+}
+
+.btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:14px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+margin-top:10px;
+}
+
+.btn-login{
+background:#2563eb;
+color:white;
+}
+
+.btn-login:hover{
+background:#1d4ed8;
+}
+
+.btn-register{
+background:#eff6ff;
+color:#2563eb;
+}
+
+.btn-register:hover{
+background:#dbeafe;
+}
+
+.info{
+margin-top:25px;
+padding:15px;
+border-radius:16px;
+background:#eff6ff;
+color:#2563eb;
+font-size:14px;
+line-height:1.7;
+}
+
+.loading{
+display:none;
+margin-top:15px;
+text-align:center;
+color:#2563eb;
+font-weight:600;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="login-box">
+
+<div class="logo">
+
+<h1>Paham Pasar</h1>
+
+<p>Dashboard UMKM Realtime Multi Device</p>
+
+</div>
+
+<div class="input-box">
+
+<label>Email</label>
+
+<input
+type="email"
+id="email"
+placeholder="Masukkan email"
+>
+
+</div>
+
+<div class="input-box">
+
+<label>Password</label>
+
+<input
+type="password"
+id="password"
+placeholder="Masukkan password"
+>
+
+</div>
+
+<button
+class="btn btn-login"
+onclick="login()"
+>
+<i class="fa-solid fa-right-to-bracket"></i>
+Login
+</button>
+
+<button
+class="btn btn-register"
+onclick="register()"
+>
+<i class="fa-solid fa-user-plus"></i>
+Daftar Akun
+</button>
+
+<div class="loading" id="loading">
+Loading...
+</div>
+
+<div class="info">
+
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+/* IMPORT FIREBASE */
+
+import { initializeApp }
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+
+getAuth,
+signInWithEmailAndPassword,
+createUserWithEmailAndPassword,
+onAuthStateChanged
+
+}
+
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+/* CONFIG FIREBASE */
+
+const firebaseConfig = {
+
+apiKey: "ISI_API_KEY",
+authDomain: "ISI_AUTH_DOMAIN",
+projectId: "ISI_PROJECT_ID",
+storageBucket: "ISI_STORAGE_BUCKET",
+messagingSenderId: "ISI_SENDER_ID",
+appId: "ISI_APP_ID"
+
+};
+
+
+/* INISIALISASI */
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+
+/* LOADING */
+
+function showLoading(status){
+
+document.getElementById(
+"loading"
+).style.display =
+
+status ? "block" : "none";
+
+}
+
+
+/* REGISTER */
+
+window.register = async function(){
+
+const email =
+document.getElementById(
+"email"
+).value;
+
+const password =
+document.getElementById(
+"password"
+).value;
+
+if(email === "" || password === ""){
+
+alert("Isi email dan password!");
+
+return;
+
+}
+
+try{
+
+showLoading(true);
+
+await createUserWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+alert("Akun berhasil dibuat!");
+
+window.location.href =
+"dashboard.html";
+
+}catch(error){
+
+alert(error.message);
+
+}finally{
+
+showLoading(false);
+
+}
+
+}
+
+
+/* LOGIN */
+
+window.login = async function(){
+
+const email =
+document.getElementById(
+"email"
+).value;
+
+const password =
+document.getElementById(
+"password"
+).value;
+
+if(email === "" || password === ""){
+
+alert("Isi email dan password!");
+
+return;
+
+}
+
+try{
+
+showLoading(true);
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+alert("Login berhasil!");
+
+window.location.href =
+"dashboard.html";
+
+}catch(error){
+
+alert("Email atau password salah!");
+
+}finally{
+
+showLoading(false);
+}
+
+}
+
+
+/* AUTO LOGIN */
+
+onAuthStateChanged(auth,function(user){
+
+if(user){
+
+console.log(
+"Sudah login:",
+user.email
+);
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Produk | Paham Pasar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f1f5f9;
+color:#1e293b;
+display:flex;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:250px;
+height:100vh;
+background:white;
+border-right:1px solid #e2e8f0;
+padding:25px;
+position:fixed;
+top:0;
+left:0;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+margin-bottom:40px;
+}
+
+.logo span{
+display:block;
+font-size:14px;
+color:#64748b;
+margin-top:5px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#475569;
+padding:14px 16px;
+border-radius:14px;
+display:flex;
+align-items:center;
+gap:12px;
+transition:0.2s;
+font-weight:500;
+}
+
+.menu a:hover{
+background:#f1f5f9;
+}
+
+.menu .active{
+background:#2563eb;
+color:white;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+width:100%;
+padding:30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+margin-bottom:30px;
+}
+
+.topbar h1{
+font-size:32px;
+margin-bottom:5px;
+}
+
+.topbar p{
+color:#64748b;
+}
+
+/* BOX */
+
+.box{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+margin-bottom:25px;
+}
+
+/* FORM */
+
+.form-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+margin-top:20px;
+}
+
+input,
+select{
+padding:15px;
+border:1px solid #e2e8f0;
+border-radius:14px;
+outline:none;
+font-size:15px;
+}
+
+/* BUTTON */
+
+.btn{
+background:#2563eb;
+color:white;
+border:none;
+padding:15px;
+border-radius:14px;
+cursor:pointer;
+font-size:15px;
+font-weight:600;
+}
+
+.btn:hover{
+background:#1d4ed8;
+}
+
+/* TABLE */
+
+.table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+.table th{
+background:#eff6ff;
+color:#2563eb;
+padding:14px;
+text-align:left;
+}
+
+.table td{
+padding:14px;
+border-bottom:1px solid #e2e8f0;
+}
+
+.table tr:hover{
+background:#f8fafc;
+}
+
+/* STATUS */
+
+.status{
+padding:8px 12px;
+border-radius:999px;
+font-size:13px;
+width:fit-content;
+font-weight:600;
+}
+
+.tersedia{
+background:#dcfce7;
+color:#166534;
+}
+
+.habis{
+background:#fee2e2;
+color:#b91c1c;
+}
+
+/* DELETE */
+
+.btn-hapus{
+background:#ef4444;
+color:white;
+border:none;
+padding:8px 14px;
+border-radius:10px;
+cursor:pointer;
+}
+
+.btn-hapus:hover{
+background:#dc2626;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+Paham Pasar
+<span>Dashboard UMKM</span>
+</div>
+
+<div class="menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+
+<a href="penjualan.html">
+<i class="fa-solid fa-chart-line"></i>
+Penjualan
+</a>
+
+<a href="produk.html" class="active">
+<i class="fa-solid fa-mug-hot"></i>
+Produk
+</a>
+
+<a href="pelanggan.html">
+<i class="fa-solid fa-users"></i>
+Pelanggan
+</a>
+
+<a href="Laporan.html">
+<i class="fa-solid fa-file-lines"></i>
+Laporan
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topbar">
+
+<h1>Produk</h1>
+
+<p>Kelola menu dan stok produk UMKM</p>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="box">
+
+<h2>Tambah Produk</h2>
+
+<div class="form-grid">
+
+<input
+type="text"
+id="namaProduk"
+placeholder="Nama Produk"
+>
+
+<input
+type="text"
+id="hargaProduk"
+placeholder="Harga Produk"
+>
+
+<input
+type="number"
+id="stokProduk"
+placeholder="Stok Produk"
+>
+
+</div>
+
+<div class="form-grid">
+
+<select id="kategoriProduk">
+
+<option value="">Kategori Produk</option>
+<option>Kopi</option>
+<option>Non Kopi</option>
+<option>Makanan</option>
+<option>Snack</option>
+
+</select>
+
+<select id="statusProduk">
+
+<option>Tersedia</option>
+<option>Habis</option>
+
+</select>
+
+<button
+class="btn"
+onclick="simpanProduk()"
+>
+Simpan Produk
+</button>
+
+</div>
+
+</div>
+
+<!-- TABEL -->
+
+<div class="box">
+
+<h2>Daftar Produk</h2>
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Nama Produk</th>
+<th>Harga</th>
+<th>Stok</th>
+<th>Kategori</th>
+<th>Status</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableProduk">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+// ======================
+// FORMAT RUPIAH
+// ======================
+
+const hargaInput =
+document.getElementById(
+"hargaProduk"
+);
+
+hargaInput.addEventListener(
+
+"input",
+
+function(e){
+
+let angka =
+e.target.value.replace(/\D/g,'');
+
+angka =
+new Intl.NumberFormat(
+"id-ID"
+).format(angka);
+
+e.target.value = angka;
+
+}
+
+);
+
+
+// ======================
+// LOAD PRODUK
+// ======================
+
+function loadProduk(){
+
+let produk = JSON.parse(
+localStorage.getItem("produk")
+) || [];
+
+let html = "";
+
+if(produk.length > 0){
+
+produk.forEach(function(item,index){
+
+html += `
+
+<tr>
+
+<td>${item.nama}</td>
+
+<td>
+Rp ${Number(item.harga)
+.toLocaleString("id-ID")}
+</td>
+
+<td>${item.stok}</td>
+
+<td>${item.kategori}</td>
+
+<td>
+
+<div class="
+status
+${item.status === 'Tersedia'
+? 'tersedia'
+: 'habis'}
+">
+
+${item.status}
+
+</div>
+
+</td>
+
+<td>
+
+<button
+class="btn-hapus"
+onclick="hapusProduk(${index})"
+>
+Hapus
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}else{
+
+html = `
+
+<tr>
+
+<td colspan="6"
+style="text-align:center;padding:30px;">
+Belum ada produk
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById(
+"tableProduk"
+).innerHTML = html;
+
+}
+
+loadProduk();
+
+
+// ======================
+// SIMPAN PRODUK
+// ======================
+
+function simpanProduk(){
+
+const nama =
+document.getElementById(
+"namaProduk"
+).value;
+
+let harga =
+document.getElementById(
+"hargaProduk"
+).value;
+
+const stok =
+document.getElementById(
+"stokProduk"
+).value;
+
+const kategori =
+document.getElementById(
+"kategoriProduk"
+).value;
+
+const status =
+document.getElementById(
+"statusProduk"
+).value;
+
+
+// VALIDASI
+
+if(
+nama === "" ||
+harga === "" ||
+stok === "" ||
+kategori === ""
+){
+
+alert("Isi data produk terlebih dahulu!");
+
+return;
+
+}
+
+
+// HAPUS TITIK RUPIAH
+
+harga =
+harga.replace(/\./g,'');
+
+
+// AMBIL DATA
+
+let produk = JSON.parse(
+localStorage.getItem("produk")
+) || [];
+
+
+// PUSH DATA
+
+produk.push({
+
+nama:nama,
+harga:harga,
+stok:stok,
+kategori:kategori,
+status:status
+
+});
+
+
+// SIMPAN
+
+localStorage.setItem(
+
+"produk",
+
+JSON.stringify(produk)
+
+);
+
+
+// REFRESH
+
+loadProduk();
+
+
+// ALERT
+
+alert("Produk berhasil ditambahkan!");
+
+
+// RESET
+
+document.getElementById(
+"namaProduk"
+).value = "";
+
+document.getElementById(
+"hargaProduk"
+).value = "";
+
+document.getElementById(
+"stokProduk"
+).value = "";
+
+document.getElementById(
+"kategoriProduk"
+).value = "";
+
+}
+
+
+// ======================
+// HAPUS PRODUK
+// ======================
+
+function hapusProduk(index){
+
+let produk = JSON.parse(
+localStorage.getItem("produk")
+) || [];
+
+produk.splice(index,1);
+
+localStorage.setItem(
+
+"produk",
+
+JSON.stringify(produk)
+
+);
+
+loadProduk();
+
+}
+
+</script>
+
+</body>
+</html>

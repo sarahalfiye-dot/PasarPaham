@@ -1,0 +1,379 @@
+```html id="1xv7ab"
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pelanggan | Paham Pasar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f1f5f9;
+display:flex;
+color:#1e293b;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:250px;
+height:100vh;
+background:white;
+position:fixed;
+top:0;
+left:0;
+padding:25px;
+border-right:1px solid #e2e8f0;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+margin-bottom:40px;
+}
+
+.logo span{
+display:block;
+font-size:14px;
+color:#64748b;
+margin-top:5px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#475569;
+padding:14px 16px;
+border-radius:14px;
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:500;
+transition:0.2s;
+}
+
+.menu a:hover{
+background:#f1f5f9;
+}
+
+.menu .active{
+background:#2563eb;
+color:white;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+width:100%;
+padding:30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+margin-bottom:30px;
+}
+
+.topbar h1{
+font-size:32px;
+margin-bottom:5px;
+}
+
+.topbar p{
+color:#64748b;
+}
+
+/* BOX */
+
+.box{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+}
+
+/* TABLE */
+
+.table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+.table th{
+background:#eff6ff;
+color:#2563eb;
+padding:14px;
+text-align:left;
+}
+
+.table td{
+padding:14px;
+border-bottom:1px solid #e2e8f0;
+}
+
+.table tr:hover{
+background:#f8fafc;
+}
+
+/* STATUS */
+
+.status{
+padding:8px 14px;
+border-radius:999px;
+font-size:13px;
+font-weight:600;
+width:fit-content;
+}
+
+.status-baru{
+background:#fef9c3;
+color:#ca8a04;
+}
+
+.status-tetap{
+background:#dcfce7;
+color:#15803d;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+Paham Pasar
+<span>Dashboard UMKM</span>
+</div>
+
+<div class="menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+
+<a href="Penjualan.html">
+<i class="fa-solid fa-chart-line"></i>
+Penjualan
+</a>
+
+<a href="Produk.html">
+<i class="fa-solid fa-mug-hot"></i>
+Produk
+</a>
+
+<a href="Pelanggan.html" class="active">
+<i class="fa-solid fa-users"></i>
+Pelanggan
+</a>
+
+<a href="Laporan.html">
+<i class="fa-solid fa-file-lines"></i>
+Laporan
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<div class="topbar">
+
+<h1>Pelanggan</h1>
+
+<p>Data pelanggan otomatis dari transaksi penjualan</p>
+
+</div>
+
+<!-- TABLE -->
+
+<div class="box">
+
+<h2>Daftar Pelanggan</h2>
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Nama Pelanggan</th>
+<th>Total Belanja</th>
+<th>Jumlah Transaksi</th>
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tablePelanggan">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+function loadPelanggan(){
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let pelangganMap = {};
+
+transaksi.forEach(function(item){
+
+const nama = item.pelanggan;
+
+if(!nama) return;
+
+if(!pelangganMap[nama]){
+
+pelangganMap[nama] = {
+
+nama:nama,
+total:0,
+jumlah:0
+
+};
+
+}
+
+pelangganMap[nama].total +=
+Number(item.total);
+
+pelangganMap[nama].jumlah += 1;
+
+});
+
+
+let pelangganArray =
+Object.values(pelangganMap);
+
+let html = "";
+
+
+if(pelangganArray.length > 0){
+
+pelangganArray.forEach(function(item){
+
+let statusClass =
+"status-baru";
+
+let statusText =
+"Pelanggan Baru";
+
+if(item.jumlah >= 3){
+
+statusClass =
+"status-tetap";
+
+statusText =
+"Pelanggan Tetap";
+
+}
+
+html += `
+
+<tr>
+
+<td>
+${item.nama}
+</td>
+
+<td>
+
+Rp ${item.total
+.toLocaleString("id-ID")}
+
+</td>
+
+<td>
+
+${item.jumlah}x
+
+</td>
+
+<td>
+
+<div class="status ${statusClass}">
+
+${statusText}
+
+</div>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}else{
+
+html = `
+
+<tr>
+
+<td colspan="4"
+style="
+text-align:center;
+padding:30px;
+color:#64748b;
+">
+
+Belum ada pelanggan
+
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById(
+"tablePelanggan"
+).innerHTML = html;
+
+}
+
+loadPelanggan();
+
+</script>
+
+</body>
+</html>
+```

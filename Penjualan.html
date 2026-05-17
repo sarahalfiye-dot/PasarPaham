@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Penjualan | Paham Pasar</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+background:#f1f5f9;
+display:flex;
+color:#1e293b;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:250px;
+height:100vh;
+background:white;
+position:fixed;
+top:0;
+left:0;
+padding:25px;
+border-right:1px solid #e2e8f0;
+overflow:auto;
+}
+
+.logo{
+font-size:28px;
+font-weight:bold;
+margin-bottom:40px;
+color:#2563eb;
+}
+
+.logo span{
+display:block;
+font-size:14px;
+color:#64748b;
+margin-top:5px;
+}
+
+.menu{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.menu a{
+text-decoration:none;
+color:#475569;
+padding:14px 16px;
+border-radius:14px;
+display:flex;
+align-items:center;
+gap:12px;
+font-weight:500;
+transition:0.2s;
+}
+
+.menu a:hover{
+background:#f1f5f9;
+}
+
+.menu .active{
+background:#2563eb;
+color:white;
+}
+
+/* MAIN */
+
+.main{
+margin-left:250px;
+width:100%;
+padding:30px;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:30px;
+}
+
+.topbar h1{
+font-size:32px;
+margin-bottom:5px;
+}
+
+.topbar p{
+color:#64748b;
+}
+
+.clock{
+background:white;
+padding:14px 20px;
+border-radius:18px;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+color:#2563eb;
+font-weight:600;
+text-align:center;
+}
+
+/* BOX */
+
+.box{
+background:white;
+padding:25px;
+border-radius:24px;
+box-shadow:0 2px 12px rgba(0,0,0,0.05);
+margin-bottom:25px;
+}
+
+/* PRODUK ITEM */
+
+.produk-item{
+display:grid;
+grid-template-columns:2fr 1fr 1fr auto;
+gap:15px;
+margin-top:15px;
+align-items:center;
+}
+
+input,
+select{
+padding:15px;
+border:1px solid #e2e8f0;
+border-radius:14px;
+outline:none;
+font-size:15px;
+width:100%;
+}
+
+/* BUTTON */
+
+.btn{
+margin-top:20px;
+background:#2563eb;
+color:white;
+border:none;
+padding:15px;
+border-radius:14px;
+cursor:pointer;
+font-size:15px;
+font-weight:600;
+}
+
+.btn:hover{
+background:#1d4ed8;
+}
+
+.btn-danger{
+background:#ef4444;
+color:white;
+border:none;
+padding:10px 14px;
+border-radius:10px;
+cursor:pointer;
+font-size:13px;
+}
+
+.btn-danger:hover{
+background:#dc2626;
+}
+
+/* TOTAL */
+
+.total-box{
+font-size:30px;
+font-weight:bold;
+color:#2563eb;
+margin-top:10px;
+}
+
+/* TABLE */
+
+.table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+}
+
+.table th{
+background:#eff6ff;
+color:#2563eb;
+padding:14px;
+text-align:left;
+font-size:14px;
+}
+
+.table td{
+padding:14px;
+border-bottom:1px solid #e2e8f0;
+font-size:14px;
+}
+
+.table tr:hover{
+background:#f8fafc;
+}
+
+/* BADGE */
+
+.badge-lunas{
+background:#dcfce7;
+color:#15803d;
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+}
+
+.badge-pending{
+background:#fef9c3;
+color:#ca8a04;
+padding:6px 12px;
+border-radius:20px;
+font-size:13px;
+font-weight:600;
+}
+
+@media(max-width:900px){
+
+.sidebar{
+display:none;
+}
+
+.main{
+margin-left:0;
+padding:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<div class="logo">
+Paham Pasar
+<span>Dashboard UMKM</span>
+</div>
+
+<div class="menu">
+
+<a href="dashboard.html">
+<i class="fa-solid fa-house"></i>
+Dashboard
+</a>
+
+<a href="penjualan.html" class="active">
+<i class="fa-solid fa-chart-line"></i>
+Penjualan
+</a>
+
+<a href="produk.html">
+<i class="fa-solid fa-mug-hot"></i>
+Produk
+</a>
+
+<a href="pelanggan.html">
+<i class="fa-solid fa-users"></i>
+Pelanggan
+</a>
+
+<a href="Laporan.html">
+<i class="fa-solid fa-file-lines"></i>
+Laporan
+</a>
+
+</div>
+
+</div>
+
+<!-- MAIN -->
+
+<div class="main">
+
+<!-- TOPBAR -->
+
+<div class="topbar">
+
+<div>
+
+<h1>Penjualan</h1>
+<p>Kelola transaksi UMKM realtime</p>
+
+</div>
+
+<div class="clock">
+
+<div id="tanggal"></div>
+<div id="jam"></div>
+
+</div>
+
+</div>
+
+<!-- INPUT -->
+
+<div class="box">
+
+<h2>Input Transaksi</h2>
+
+<input
+type="text"
+id="namaPelanggan"
+placeholder="Nama Pelanggan"
+style="margin-top:20px;"
+>
+
+<div id="produkContainer"></div>
+
+<button
+class="btn"
+onclick="tambahProduk()"
+>
++ Tambah Produk
+</button>
+
+<br>
+
+<select id="metodePembayaran" style="margin-top:20px;">
+
+<option>QRIS</option>
+<option>Cash</option>
+<option>Transfer</option>
+
+</select>
+
+<select id="statusPembayaran" style="margin-top:20px;">
+
+<option>Lunas</option>
+<option>Pending</option>
+
+</select>
+
+<input
+type="date"
+id="tanggalInput"
+style="margin-top:20px;"
+>
+
+<button
+class="btn"
+onclick="simpanTransaksi()"
+style="width:100%;"
+>
+Simpan Transaksi
+</button>
+
+</div>
+
+<!-- TOTAL -->
+
+<div class="box">
+
+<h3>Total Penjualan</h3>
+
+<div
+class="total-box"
+id="totalPenjualan"
+>
+Rp 0
+</div>
+
+</div>
+
+<!-- LAPORAN -->
+
+<div class="box">
+
+<h2>Laporan Penjualan</h2>
+
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+
+<div>
+
+<h3>Mingguan</h3>
+
+<div class="total-box" id="mingguan">
+Rp 0
+</div>
+
+<p id="trxMingguan">
+0 transaksi
+</p>
+
+</div>
+
+<div>
+
+<h3>Bulanan</h3>
+
+<div class="total-box" id="bulanan">
+Rp 0
+</div>
+
+<p id="trxBulanan">
+0 transaksi
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIWAYAT -->
+
+<div class="box">
+
+<h2>Riwayat Transaksi</h2>
+
+<table class="table">
+
+<thead>
+
+<tr>
+
+<th>Produk</th>
+<th>Pelanggan</th>
+<th>Total</th>
+<th>Pembayaran</th>
+<th>Status</th>
+<th>Tanggal</th>
+<th>Jam</th>
+<th>Aksi</th>
+
+</tr>
+
+</thead>
+
+<tbody id="tableTransaksi">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+<script>
+
+/* JAM */
+
+function updateClock(){
+
+const now = new Date();
+
+document.getElementById(
+"tanggal"
+).textContent =
+
+now.toLocaleDateString("id-ID");
+
+document.getElementById(
+"jam"
+).textContent =
+
+now.toLocaleTimeString("id-ID");
+
+}
+
+updateClock();
+
+setInterval(updateClock,1000);
+
+
+/* TAMBAH PRODUK */
+
+function tambahProduk(){
+
+let produk = JSON.parse(
+localStorage.getItem("produk")
+) || [];
+
+let html = `
+
+<div class="produk-item">
+
+<select class="pilihProduk">
+
+<option value="">
+Pilih Produk
+</option>
+
+`;
+
+produk.forEach(function(item){
+
+if(item.status === "Tersedia"){
+
+html += `
+
+<option
+value="${item.nama}"
+data-harga="${item.harga}"
+>
+${item.nama}
+</option>
+
+`;
+
+}
+
+});
+
+html += `
+
+</select>
+
+<input
+type="number"
+class="jumlahProduk"
+placeholder="Jumlah"
+>
+
+<input
+type="text"
+class="hargaProduk"
+placeholder="Harga"
+readonly
+>
+
+<button
+class="btn-danger"
+onclick="hapusProdukItem(this)"
+>
+X
+</button>
+
+</div>
+
+`;
+
+document.getElementById(
+"produkContainer"
+).insertAdjacentHTML(
+"beforeend",
+html
+);
+
+updateSelectEvent();
+
+}
+
+
+/* HAPUS ITEM */
+
+function hapusProdukItem(button){
+
+button.parentElement.remove();
+
+}
+
+
+/* AUTO HARGA */
+
+function updateSelectEvent(){
+
+document.querySelectorAll(
+".pilihProduk"
+).forEach(function(select){
+
+select.onchange = function(){
+
+let option =
+this.options[this.selectedIndex];
+
+let harga =
+option.getAttribute("data-harga");
+
+let hargaInput =
+this.parentElement.querySelector(
+".hargaProduk"
+);
+
+if(harga){
+
+hargaInput.value =
+
+"Rp " +
+
+Number(harga)
+.toLocaleString("id-ID");
+
+}
+
+};
+
+});
+
+}
+
+
+/* TOTAL */
+
+function loadTotal(){
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let total = 0;
+
+transaksi.forEach(function(item){
+
+total += Number(item.total);
+
+});
+
+document.getElementById(
+"totalPenjualan"
+).textContent =
+
+"Rp " +
+total.toLocaleString("id-ID");
+
+}
+
+loadTotal();
+
+
+/* SIMPAN TRANSAKSI */
+
+function simpanTransaksi(){
+
+let pelanggan =
+document.getElementById(
+"namaPelanggan"
+).value;
+
+let metode =
+document.getElementById(
+"metodePembayaran"
+).value;
+
+let status =
+document.getElementById(
+"statusPembayaran"
+).value;
+
+let tanggal =
+document.getElementById(
+"tanggalInput"
+).value;
+
+if(pelanggan === ""){
+
+alert("Isi nama pelanggan!");
+return;
+
+}
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let produkData = JSON.parse(
+localStorage.getItem("produk")
+) || [];
+
+let totalSemua = 0;
+
+let namaProdukGabung = [];
+
+let items = document.querySelectorAll(
+".produk-item"
+);
+
+if(items.length === 0){
+
+alert("Tambah produk dulu!");
+return;
+
+}
+
+items.forEach(function(item){
+
+let namaProduk =
+item.querySelector(
+".pilihProduk"
+).value;
+
+let jumlah =
+item.querySelector(
+".jumlahProduk"
+).value;
+
+if(namaProduk && jumlah){
+
+let produkDipilih =
+produkData.find(
+p => p.nama === namaProduk
+);
+
+let total =
+Number(produkDipilih.harga)
+*
+Number(jumlah);
+
+totalSemua += total;
+
+namaProdukGabung.push(
+namaProduk + " x" + jumlah
+);
+
+produkDipilih.stok =
+
+Number(produkDipilih.stok)
+-
+Number(jumlah);
+
+if(produkDipilih.stok <= 0){
+
+produkDipilih.status = "Habis";
+
+}
+
+}
+
+});
+
+const now = new Date();
+
+const jam =
+String(now.getHours()).padStart(2,"0");
+
+const menit =
+String(now.getMinutes()).padStart(2,"0");
+
+const waktuLengkap =
+jam + ":" + menit;
+
+transaksi.push({
+
+nama:
+namaProdukGabung.join(", "),
+
+pelanggan:pelanggan,
+metode:metode,
+status:status,
+tanggal:tanggal,
+jam:jam,
+waktu:waktuLengkap,
+total:totalSemua
+
+});
+
+localStorage.setItem(
+"transaksi",
+JSON.stringify(transaksi)
+);
+
+localStorage.setItem(
+"produk",
+JSON.stringify(produkData)
+);
+
+/* PELANGGAN */
+
+let pelangganData = JSON.parse(
+localStorage.getItem("pelanggan")
+) || [];
+
+let cek = pelangganData.find(
+item => item.nama === pelanggan
+);
+
+if(!cek){
+
+pelangganData.push({
+
+nama:pelanggan,
+jumlahTransaksi:1,
+totalBelanja:totalSemua
+
+});
+
+}else{
+
+cek.jumlahTransaksi += 1;
+cek.totalBelanja += totalSemua;
+
+}
+
+localStorage.setItem(
+"pelanggan",
+JSON.stringify(pelangganData)
+);
+
+loadTotal();
+loadRiwayat();
+loadLaporan();
+
+alert("Transaksi berhasil!");
+
+document.getElementById(
+"produkContainer"
+).innerHTML = "";
+
+document.getElementById(
+"namaPelanggan"
+).value = "";
+
+tambahProduk();
+
+}
+
+
+/* RIWAYAT */
+
+function loadRiwayat(){
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let html = "";
+
+if(transaksi.length > 0){
+
+transaksi.forEach(function(item,index){
+
+let badge = "";
+
+if(item.status === "Lunas"){
+
+badge = `
+<span class="badge-lunas">
+Lunas
+</span>
+`;
+
+}else{
+
+badge = `
+<span class="badge-pending">
+Pending
+</span>
+`;
+
+}
+
+html += `
+
+<tr>
+
+<td>${item.nama}</td>
+
+<td>${item.pelanggan}</td>
+
+<td>
+Rp ${Number(item.total)
+.toLocaleString("id-ID")}
+</td>
+
+<td>${item.metode}</td>
+
+<td>${badge}</td>
+
+<td>${item.tanggal}</td>
+
+<td>${item.waktu || "-"}</td>
+
+<td>
+
+<button
+class="btn-danger"
+onclick="hapusTransaksi(${index})"
+>
+Hapus
+</button>
+
+</td>
+
+</tr>
+
+`;
+
+});
+
+}else{
+
+html = `
+
+<tr>
+
+<td colspan="8"
+style="text-align:center;padding:30px;">
+Belum ada transaksi
+</td>
+
+</tr>
+
+`;
+
+}
+
+document.getElementById(
+"tableTransaksi"
+).innerHTML = html;
+
+}
+
+loadRiwayat();
+
+
+/* LAPORAN */
+
+function loadLaporan(){
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let totalMingguan = 0;
+let totalBulanan = 0;
+
+let trxMingguan = 0;
+let trxBulanan = 0;
+
+const sekarang = new Date();
+
+transaksi.forEach(function(item){
+
+if(!item.tanggal) return;
+
+const tanggal =
+new Date(item.tanggal);
+
+const selisihHari =
+
+(sekarang - tanggal)
+
+/
+
+(1000*60*60*24);
+
+if(selisihHari <= 7){
+
+totalMingguan +=
+Number(item.total);
+
+trxMingguan++;
+
+}
+
+if(
+
+tanggal.getMonth()
+=== sekarang.getMonth()
+
+&&
+
+tanggal.getFullYear()
+=== sekarang.getFullYear()
+
+){
+
+totalBulanan +=
+Number(item.total);
+
+trxBulanan++;
+
+}
+
+});
+
+document.getElementById(
+"mingguan"
+).textContent =
+
+"Rp " +
+
+totalMingguan.toLocaleString(
+"id-ID"
+);
+
+document.getElementById(
+"bulanan"
+).textContent =
+
+"Rp " +
+
+totalBulanan.toLocaleString(
+"id-ID"
+);
+
+document.getElementById(
+"trxMingguan"
+).textContent =
+
+trxMingguan + " transaksi";
+
+document.getElementById(
+"trxBulanan"
+).textContent =
+
+trxBulanan + " transaksi";
+
+}
+
+loadLaporan();
+
+
+/* HAPUS TRANSAKSI */
+
+function hapusTransaksi(index){
+
+let transaksi = JSON.parse(
+localStorage.getItem("transaksi")
+) || [];
+
+let konfirmasi = confirm(
+"Yakin ingin menghapus transaksi ini?"
+);
+
+if(konfirmasi){
+
+transaksi.splice(index,1);
+
+localStorage.setItem(
+"transaksi",
+JSON.stringify(transaksi)
+);
+
+loadRiwayat();
+loadTotal();
+loadLaporan();
+
+alert("Transaksi berhasil dihapus!");
+
+}
+
+}
+
+
+/* LOAD PERTAMA */
+
+tambahProduk();
+
+</script>
+
+</body>
+</html>
